@@ -28,19 +28,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Mono<TransactionResponseDto> createTransaction(TransactionCreateRequestDto requestDto) {
-        return Mono.fromCallable(() -> {
-                    Transaction transaction = transactionMapper.toEntity(requestDto);
-                    transaction.setTransactionStatus(
-                        requestDto.getTransactionStatus() != null
-                            ? requestDto.getTransactionStatus()
-                            : Boolean.TRUE
-                    );
-                    transaction.setCreatedAt(LocalDateTime.now());
-                    transaction.setUpdatedAt(LocalDateTime.now());
-                    return transaction;
-                })
+        Transaction transaction = transactionMapper.toEntity(requestDto);
+        //transaction.setCreatedAt(LocalDateTime.now());
+        //transaction.setUpdatedAt(LocalDateTime.now());
+        return transactionRepository.save(transaction)
                 .doFirst(() -> log.info(LogMessages.TRANSACTION_CREATE_REQUEST, requestDto.getCustomerId()))
-                .flatMap(transactionRepository::save)
                 .map(transactionMapper::toResponseDto)
                 .doOnSuccess(response -> log.info(LogMessages.TRANSACTION_CREATE_SUCCESS, response.getTransactionId()))
                 .doOnError(error -> log.error(LogMessages.TRANSACTION_CREATE_ERROR, requestDto.getCustomerId(), error));

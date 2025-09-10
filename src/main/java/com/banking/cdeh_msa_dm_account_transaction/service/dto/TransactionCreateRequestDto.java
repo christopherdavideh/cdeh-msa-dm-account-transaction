@@ -17,7 +17,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TransactionCreateRequestDto {
 
-    @NotBlank(message = "Customer ID no puede estar vacío")
+    private UUID transactionId;
+
     private UUID customerId;
 
     @NotBlank(message = "Source account no puede estar vacío")

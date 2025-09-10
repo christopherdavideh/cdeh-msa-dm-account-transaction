@@ -15,6 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TransactionUpdateRequestDto {
 
+    private UUID transactionId;
+
     private UUID customerId;
 
     private String sourceAccount;

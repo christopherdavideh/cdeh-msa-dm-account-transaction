@@ -9,32 +9,20 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-/**
- * Mapper for Transaction entity and DTOs
- */
 @Mapper(
     componentModel = "spring",
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface TransactionMapper {
 
-    /**
-     * Map TransactionCreateRequestDto to Transaction entity
-     */
-    @Mapping(target = "transactionId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "transactionStatus", constant = "true")
     Transaction toEntity(TransactionCreateRequestDto dto);
 
-    /**
-     * Map Transaction entity to TransactionResponseDto
-     */
     TransactionResponseDto toResponseDto(Transaction entity);
 
-    /**
-     * Update existing Transaction entity with TransactionUpdateRequestDto
-     */
-    @Mapping(target = "transactionId", ignore = true)
+
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     void updateEntityFromDto(TransactionUpdateRequestDto dto, @MappingTarget Transaction entity);
