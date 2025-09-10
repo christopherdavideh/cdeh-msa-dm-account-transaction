@@ -29,8 +29,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Mono<TransactionResponseDto> createTransaction(TransactionCreateRequestDto requestDto) {
         Transaction transaction = transactionMapper.toEntity(requestDto);
-        //transaction.setCreatedAt(LocalDateTime.now());
-        //transaction.setUpdatedAt(LocalDateTime.now());
         return transactionRepository.save(transaction)
                 .doFirst(() -> log.info(LogMessages.TRANSACTION_CREATE_REQUEST, requestDto.getCustomerId()))
                 .map(transactionMapper::toResponseDto)
