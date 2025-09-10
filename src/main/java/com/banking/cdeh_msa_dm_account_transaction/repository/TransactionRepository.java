@@ -14,14 +14,14 @@ import java.util.UUID;
 @Repository
 public interface TransactionRepository extends R2dbcRepository<Transaction, UUID> {
 
-    @Query("SELECT * FROM transactions WHERE customer_id = :customerId AND source_account = :accountId AND transaction_status = true AND created_at BETWEEN :startDate AND :endDate ORDER BY created_at DESC")
-    Flux<Transaction> findByCustomerIdAndAccountId(String customerId, String accountId, LocalDateTime startDate, LocalDateTime endDate);
+    @Query("SELECT * FROM transactions WHERE customer_id = :customerId AND source_account = :accountNumber AND transaction_status = true AND created_at BETWEEN :startDate AND :endDate ORDER BY created_at DESC")
+    Flux<Transaction> findByCustomerIdAndAccountId(UUID customerId, String accountNumber, LocalDateTime startDate, LocalDateTime endDate);
 
 
     @Query("SELECT * FROM transactions WHERE transaction_status = true ORDER BY created_at DESC")
     Flux<Transaction> getAllTransactionsActive();
 
-    Flux<Transaction> findByCustomerIdAndTransactionStatus(String customerId, Boolean status);
+    Flux<Transaction> findByCustomerIdAndTransactionStatus(UUID customerId, Boolean status);
 
     @Modifying
     @Query("UPDATE transactions SET transaction_status = false WHERE transaction_id = :transactionId")

@@ -19,7 +19,7 @@ public interface TransactionService {
 
     Mono<Void> deleteTransaction(UUID transactionId);
 
-    Flux<TransactionResponseDto> getTransactionsByCustomerIdAndAccountId(String customerId, String accountId, LocalDateTime startDate, LocalDateTime endDate);
+    Flux<TransactionResponseDto> getTransactionsByCustomerIdAndAccountId(UUID customerId, String accountNumber, LocalDateTime startDate, LocalDateTime endDate);
 
 
     Flux<TransactionResponseDto> getAllActiveTransactions();

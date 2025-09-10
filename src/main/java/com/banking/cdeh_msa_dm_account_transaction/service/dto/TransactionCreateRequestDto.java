@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
 public class TransactionCreateRequestDto {
 
     @NotBlank(message = "Customer ID no puede estar vacío")
-    private String customerId;
+    private UUID customerId;
 
     @NotBlank(message = "Source account no puede estar vacío")
     private String sourceAccount;
@@ -27,7 +28,6 @@ public class TransactionCreateRequestDto {
     private BigDecimal initialBalance;
 
     @NotNull(message = "Amount no puede ser nulo")
-    @DecimalMin(value = "0.01", message = "Amount debe ser mayor a 0")
     private BigDecimal amount;
 
     @NotNull(message = "Available balance no puede ser nulo")

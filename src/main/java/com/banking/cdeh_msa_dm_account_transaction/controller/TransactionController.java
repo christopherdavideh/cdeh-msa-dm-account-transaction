@@ -52,13 +52,13 @@ public class TransactionController {
                 .then(Mono.just(ResponseEntity.noContent().build()));
     }
 
-    @GetMapping("/customer/{customerId}/account/{accountId}")
+    @GetMapping("/customer/{customerId}/account/{accountNumber}")
     public Flux<TransactionResponseDto> getTransactionsByCustomerIdAndAccountId(
-            @PathVariable String customerId,
-            @PathVariable String accountId,
+            @PathVariable UUID customerId,
+            @PathVariable String accountNumber,
             @RequestParam LocalDateTime startDate,
             @RequestParam LocalDateTime endDate) {
-        return transactionService.getTransactionsByCustomerIdAndAccountId(customerId, accountId, startDate, endDate);
+        return transactionService.getTransactionsByCustomerIdAndAccountId(customerId, accountNumber, startDate, endDate);
     }
 
     @GetMapping

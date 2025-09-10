@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -14,14 +15,13 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class TransactionUpdateRequestDto {
 
-    private String customerId;
+    private UUID customerId;
 
     private String sourceAccount;
 
     @DecimalMin(value = "0.0", inclusive = true, message = "Initial balance debe ser mayor o igual a 0")
     private BigDecimal initialBalance;
 
-    @DecimalMin(value = "0.01", message = "Amount debe ser mayor a 0")
     private BigDecimal amount;
 
     @DecimalMin(value = "0.0", inclusive = true, message = "Available balance debe ser mayor o igual a 0")

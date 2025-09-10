@@ -24,7 +24,7 @@ public class Transaction {
     private UUID transactionId;
 
     @Column("customer_id")
-    private String customerId;
+    private UUID customerId;
 
     @Column("source_account")
     private String sourceAccount;

@@ -91,13 +91,13 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Flux<TransactionResponseDto> getTransactionsByCustomerIdAndAccountId(String customerId, String accountId, LocalDateTime startDate, LocalDateTime endDate) {
-        return transactionRepository.findByCustomerIdAndAccountId(customerId, accountId, startDate, endDate)
-                .doFirst(() -> log.info("Obteniendo transacciones activas para customer: {} y account: {} entre {} y {}", customerId, accountId, startDate, endDate))
+    public Flux<TransactionResponseDto> getTransactionsByCustomerIdAndAccountId(UUID customerId, String accountNumber, LocalDateTime startDate, LocalDateTime endDate) {
+        return transactionRepository.findByCustomerIdAndAccountId(customerId, accountNumber, startDate, endDate)
+                .doFirst(() -> log.info("Obteniendo transacciones activas para customer: {} y account: {} entre {} y {}", customerId, accountNumber, startDate, endDate))
                 .map(transactionMapper::toResponseDto)
                 .collectList()
                 .doOnSuccess(list -> log.info(LogMessages.TRANSACTION_LIST_SUCCESS, list.size()))
-                .doOnError(error -> log.error("Error al obtener transacciones para customer: {} y account: {} entre fechas", customerId, accountId, error))
+                .doOnError(error -> log.error("Error al obtener transacciones para customer: {} y account: {} entre fechas", customerId, accountNumber, error))
                 .flatMapMany(Flux::fromIterable);
     }
 
